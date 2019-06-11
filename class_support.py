@@ -28,8 +28,8 @@ class Spell:
     self.sDmg = sDmg   # Spell Dmg/heal amount
     
 class Skill:
-  def __init(self, sNm, sTyp, sC, sDmg):
-    self.skname= sNm  # skill name
-    self.sktype= sTyp # skill type (atk, heal)
-    self.skCost= sC   # Stamina
-    self.skDmg= sDmg  # amount of damage the skill does
+  def __init(self, kNm, kTyp, kC, kDmg):
+    self.kname= kNm  # skill name
+    self.ktype= kTyp # skill type (atk, heal)
+    self.kCost= kC   # Stamina
+    self.kDmg= kDmg  # amount of damage the skill does
