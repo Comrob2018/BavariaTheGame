@@ -39,6 +39,7 @@ class gameWorld:
 
     #Creating Item list
     self.Spells= [class_support.Spell("Cure", 1, "Heal", 15, 30), class_support.Spell("Fireball", 1, "Atk", 15, 15), class_support.Spell("Str Up", 1, "Buff", 20, 5)]
+    self.Skills= [class_support.Skill("", "Atk", , ), class_support.Skill("", "Atk", , ), class_support.Skill("", "Atk", , ), class_support.Skill("", "Atk", , ), class_support.Skill("", "Atk", , ), class_support.Skill("", "Atk", , )
     self.weapons = [class_support.Weapon("Short Sword", 5, 10, "sword"), class_support.Weapon("Brass Knuckles", 10, 14, "bare"), class_support.Weapon("Wooden Staff", 5, 10, "staff"), class_support.Weapon("Rapier", 9, 5, "sword"), class_support.Weapon("Long Sword", 20, 10, "sword"), class_support.Weapon("light Axe", 28, 15, "axe"), class_support.Weapon("Small Knife", 5, 15, "knife"), class_support.Weapon("Stick", 1, 3, "knife")]
     self.armors = [class_support.Armor("Cloth Armor", 10, 5, "cloth"), class_support.Armor("Shirt", 10, 3, "cloth"), class_support.Armor("Leather Armor", 15, 8, "leather"), class_support.Armor("Robe", 10, 3, "cloth"), class_support.Armor("Cover-all", 5, 7, "cloth")]
     self.items = [class_support.Item("Potion", "Heal", 1, 30), class_support.Item("Ether", "Heal", 1, 25),class_support.Item("Kings Crown", "Key", 1), class_support.Item('Door Key', "Consumable", 1), class_support.Item("Skull Key", "Consumable", 1)]
@@ -65,10 +66,11 @@ class gameWorld:
     #Normal HUD
     print(f'Name : {self.player.pname}        Lvl : {self.player.lvl}     Exp : {self.player.exp}')
     print(f'HP : {self.player.health}/{self.player.max_health}      Battles Left: {len(self.badguys)}    Gold : {self.player.gold}')
-    #Mage HUD
     #requires additional MP stuff
-    if self.player.pclass == "Mage":
+    if self.player.pclass == "Mage" or self.player.pclass == "Monk":
       print(f'MP : {self.player.mp}/{self.player.max_mp}')
+    if self.play.pclass == "Fighter" or self.player.pclass == "Thief":
+      print(f'Stamina: {self.player.mp}/{self.player.max_mp}')
 
     #Check if there is anything in the inventory
     if not self.player.inv:
@@ -115,6 +117,8 @@ class gameWorld:
         health = 35
         Ev = 8
         Acc = 45
+        self.player.max_mp = 40
+        self.player.mp = self.player.max_mp
       elif tmp == "2":
         #Monk Class
         helper_functions.clear_screen()
@@ -125,6 +129,8 @@ class gameWorld:
         health = 25
         Ev = 12
         Acc = 35
+        self.player.max_mp = 20
+        self.player.mp = self.player.max_mp
       elif tmp == "3":
         #Thief Class
         helper_functions.clear_screen()
@@ -135,6 +141,8 @@ class gameWorld:
         Ev = 20
         Acc = 30
         self.player.strength=random.randint(5,8)
+        self.player.max_mp = 15
+        self.player.mp = self.player.max_mp
       elif tmp == "4":
         #Mage Class
         self.player.pclass = "Mage"
@@ -202,8 +210,10 @@ class gameWorld:
       print(f"Name: {self.player.pname}")
       print(f"Class: {self.player.pclass}")
       print(f"Health: {self.player.health}/{self.player.max_health}")
-      if self.player.pclass == "Mage":
+      if self.player.pclass == "Mage" or self.player.pclass == "Monk":
         print(f"Mana: {self.player.mp}/{self.player.max_mp}")
+      if self.play.pclass == "Fighter" or self.player.pclass == "Thief":
+        print(f'Stamina: {self.player.mp}/{self.player.max_mp}')
       print(f"Evasion: {self.player.Evasion}   Accuracy: {self.player.Accuracy}")
       print(f"Strength: {self.player.strength} ")
       print(f"Weapon: {self.player.Weapon[0].wname}  Atk rate: {self.player.Weapon[0].watk}")
