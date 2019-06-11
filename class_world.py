@@ -38,7 +38,7 @@ class gameWorld:
 
 
     #Creating Item list
-    self.Spells= [class_support.Spell("Cure", 1, "Heal", 15, 30), class_support.Spell("Fireball", 1, "Atk", 15, 15), class_support.Spell("Str Up", 1, "Buff", 20, 5)]
+    self.Spells= [class_support.Spell("Cure", 1, "Heal", 15, 30), class_support.Spell("Fireball", 1, "Atk", 15, 15), class_support.Spell("Str Up", 1, "Buff", 20, 5)class_support.Spell("Cura", 1, "Heal", 30, 60)]
     self.Skills= [class_support.Skill("Cleaving Strike", "Atk", 20, 30), class_support.Skill("Mug", "Atk", 5, 15), class_support.Skill("Whirlwind Strike", "Atk", 15, 20), class_support.Skill("Death Blow", "Atk", 40, 65), class_support.Skill("Steal Life", "Atk", 10, 20)]
     self.weapons = [class_support.Weapon("Short Sword", 5, 10, "sword"), class_support.Weapon("Brass Knuckles", 10, 14, "bare"), class_support.Weapon("Wooden Staff", 5, 10, "staff"), class_support.Weapon("Rapier", 9, 5, "sword"), class_support.Weapon("Long Sword", 20, 10, "sword"), class_support.Weapon("light Axe", 28, 15, "axe"), class_support.Weapon("Small Knife", 5, 15, "knife"), class_support.Weapon("Stick", 1, 3, "knife")]
     self.armors = [class_support.Armor("Cloth Armor", 10, 5, "cloth"), class_support.Armor("Shirt", 10, 3, "cloth"), class_support.Armor("Leather Armor", 15, 8, "leather"), class_support.Armor("Robe", 10, 3, "cloth"), class_support.Armor("Cover-all", 5, 7, "cloth")]
@@ -278,6 +278,23 @@ class gameWorld:
         self.player.addSpell("Cure")
       if self.player.lvl % 3:
         self.player.addSpell("Fireball")
+    if self.player.pclass == "Fighter":
+      if self.player.lvl % 2:
+        self.player.addSkill("Whirlwind Strike")
+      if self.player.lvl % 3:
+        self.player.addSkill("Cleaving Strike")
+      if self.player.lvl % 4:
+        self.player.addSkill("Death Blow")  
+    if self.player.pclass == "Monk":
+      if self.player.lvl % 2:
+        self.player.addSpell("Cure")
+      if self.player.lvl % 3:
+        self.player.addSpell("Cura")
+    if self.player.pclass == "Theif":
+      if self.player.lvl % 2:
+        self.player.addSkill("Mug")
+      if self.player.lvl % 3:
+        self.player.addSkill("Steal Life")
     #lvl up mobs
     for bad in self.moblist:
       bad.lvl += plvl
