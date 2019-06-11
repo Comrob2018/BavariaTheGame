@@ -145,6 +145,7 @@ class gameWorld:
         self.player.mp = self.player.max_mp
       elif tmp == "4":
         #Mage Class
+        helper_functions.clear_screen()
         self.player.pclass = "Mage"
         health = 15
         Ev = 12
@@ -155,7 +156,7 @@ class gameWorld:
         self.player.mp = self.player.max_mp
         self.player.strength=random.randint(4,6)
       else:
-        #User didn't choice a class so we will assign open
+        #User didn't choose a class so we will assign one
         #They get a Loser Class
         print("""
         Guess you didn't want to choose a class. 
