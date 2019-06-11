@@ -134,14 +134,14 @@ class player:
         return True
     return False
   
-  def addSkill(self, skname):
+  def addSkill(self, kname):
     #Check to see if player already has skill
-    for skill in self.skills:
-      if skill.skname in skname:
-        print(f" You have {skill.skname} skill already!")
-      elif skill.skname not in skname:
-        print(f" You have learned the {skill.skname} skill!")
-        self.Skills.append(class_support.Skill(skill.skname, skill.sktype, skill.skCost, skill.skDmg))
+    for skill in self.Skills:
+      if skill.kname in kname:
+        print(f" You have {skill.kname} skill already!")
+      elif skill.kname not in kname:
+        print(f" You have learned the {skill.kname} skill!")
+        self.Skills.append(class_support.Skill(skill.kname, skill.ktype, skill.kCost, skill.kDmg))
       else:
         print(f" No skill learned")
         
