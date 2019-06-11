@@ -30,6 +30,6 @@ class Spell:
 class Skill:
   def __init(self, sNm, sTyp, sC, sDmg):
     self.skname= sNm  # skill name
-    self.sktype= sTyp # skill type (fighter, thief)
+    self.sktype= sTyp # skill type (atk, heal)
     self.skCost= sC   # Stamina
     self.skDmg= sDmg  # amount of damage the skill does
