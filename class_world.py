@@ -619,10 +619,11 @@ class gameWorld:
           Spells_found = True
           
       if Items_found and Spells_found:
-        #player has spells and items
+        #player has spells and items and skills
         tmp_input = input('''
             Press Enter to go back to the map
             Press I to use a Item
+            Press K to use a Skill
             Press S to use a Spell
             ''')
         if tmp_input.lower() == "i":
@@ -648,6 +649,25 @@ class gameWorld:
                 update = True
               else:
                 update = True
+        elif tmp_input.lower() == "k":
+          #Spell was selected
+          for skill in self.player.Skills:
+          #Check to see if they can cast it
+            if self.player.mp >= skill.kCost:
+            #Ask if they want to use item
+              if skill.kname == "":
+                tmp_answer = input(f'Use {skill.sname} Cost {skill.sCost}? y/n')
+                if tmp_answer.lower() == "y":
+                  #Use skill
+                  self.player.HealPlayer(int(spell.sDmg))
+                  print(f' You healed for {spell.sDmg}', end='\r')
+                  self.player.mp -= spell.sCost
+                  update = True
+                else:
+                  update = True
+            else:
+              print("You don't have enough Stamina to use any skills", end='\r')
+              update = True        
         elif tmp_input.lower() == "s":
           #Spell was selected
           for spell in self.player.Spells:
@@ -748,10 +768,10 @@ class gameWorld:
     print('.......................................')
     print(f' Name : {self.player.pname}   Class: {self.player.pclass}     Lvl: {self.player.lvl}')
     #If player is a mage show their MP
-    if self.player.pclass == "Mage":
+    if self.player.pclass == "Mage" or self.player.pclass == "Monk":
       print(f' HP: {self.player.health}/{self.player.max_health}      MP: {self.player.mp}/{self.player.max_mp} ')
     else:
-      print(f' HP: {self.player.health}/{self.player.max_health} ')
+      print(f' HP: {self.player.health}/{self.player.max_health}      Stamina: {self.player.mp}/{self.player.max_mp}')
     print('.......................................')
     #player has a weapon equiped
     print(f' Weapon: {self.player.Weapon[0].wname}   Dmg: {self.player.Weapon[0].watk}')
