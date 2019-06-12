@@ -141,7 +141,7 @@ class gameWorld:
         Ev = 20
         Acc = 30
         self.player.strength=random.randint(5,8)
-        self.player.max_mp = 15
+        self.player.max_mp = 20
         self.player.mp = self.player.max_mp
       elif tmp == "4":
         #Mage Class
@@ -191,6 +191,7 @@ class gameWorld:
         self.player.GiveItem(self.GetItemByName("Ether"), 10)
         self.player.addSpell("Cure")
         self.player.addSpell("Fireball")
+        self.player.addSkill("Death Blow")
         self.player.health = 60
         self.player.max_health = self.player.health
         self.player.Evasion = 40
@@ -283,9 +284,7 @@ class gameWorld:
       if self.player.lvl % 2:
         self.player.addSkill("Whirlwind Strike")
       if self.player.lvl % 3:
-        self.player.addSkill("Cleaving Strike")
-      if self.player.lvl % 4:
-        self.player.addSkill("Death Blow")  
+        self.player.addSkill("Cleaving Strike") 
     if self.player.pclass == "Monk":
       if self.player.lvl % 2:
         self.player.addSpell("Cure")
@@ -617,8 +616,8 @@ class gameWorld:
       for spell in self.player.Spells:
         if spell.sname == "Cure":
           Spells_found = True
-          
-      if Items_found and Spells_found:
+      
+      if Items_found and Spells_found and Skills_found:
         #player has spells and items and skills
         tmp_input = input('''
             Press Enter to go back to the map
@@ -659,9 +658,9 @@ class gameWorld:
                 tmp_answer = input(f'Use {skill.sname} Cost {skill.sCost}? y/n')
                 if tmp_answer.lower() == "y":
                   #Use skill
-                  self.player.HealPlayer(int(spell.sDmg))
-                  print(f' You healed for {spell.sDmg}', end='\r')
-                  self.player.mp -= spell.sCost
+                  self.player.HealPlayer(int(skill.kDmg))
+                  print(f' You dealt {skill.sDmg} damage', end='\r')
+                  self.player.mp -= skill.kCost
                   update = True
                 else:
                   update = True
@@ -808,6 +807,16 @@ class gameWorld:
         print(f' {spell.sname}     Lvl: {spell.slevel}    Dmg: {spell.sDmg}')
     else:
       print("You don't have any spells")
+    print('.......................................')
+    print('')
+    
+    #Check for Skills
+    print(" Skills:")
+    if self.player.Skills:
+      for spell in self.player.Skills:
+        print(f' {skill.kname}     Dmg: {skill.kDmg}')
+    else:
+      print("You don't have any skills")
     print('.......................................')
     print('')
 
