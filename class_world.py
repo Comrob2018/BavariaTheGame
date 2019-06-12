@@ -617,12 +617,11 @@ class gameWorld:
         if spell.sname == "Cure":
           Spells_found = True
       
-      if Items_found and Spells_found and Skills_found:
-        #player has spells and items and skills
+      if Items_found and Spells_found:
+        #player has spells and items
         tmp_input = input('''
             Press Enter to go back to the map
             Press I to use a Item
-            Press K to use a Skill
             Press S to use a Spell
             ''')
         if tmp_input.lower() == "i":
@@ -648,25 +647,6 @@ class gameWorld:
                 update = True
               else:
                 update = True
-        elif tmp_input.lower() == "k":
-          #Skill was selected
-          for skill in self.player.Skills:
-          #Check to see if they can cast it
-            if self.player.mp >= skill.kCost:
-            #Ask if they want to use item
-              if skill.kname == "":
-                tmp_answer = input(f'Use {skill.sname} Cost {skill.sCost}? y/n')
-                if tmp_answer.lower() == "y":
-                  #Use skill
-                  self.player.HealPlayer(int(skill.kDmg))
-                  print(f' You dealt {skill.sDmg} damage', end='\r')
-                  self.player.mp -= skill.kCost
-                  update = True
-                else:
-                  update = True
-            else:
-              print("You don't have enough Stamina to use any skills", end='\r')
-              update = True        
         elif tmp_input.lower() == "s":
           #Spell was selected
           for spell in self.player.Spells:
@@ -691,11 +671,10 @@ class gameWorld:
           update = False
           working = False
           break
-      elif Spells_found and Skills_found and not Items_found:
+      elif Spells_found and not Items_found:
         #Spells but no items
         tmp_input = input('''
               Press Enter to go back to the map
-              Press K to use Skill
               Press S to use Spell
               ''')
         if tmp_input.lower() == "s":
@@ -717,25 +696,6 @@ class gameWorld:
                   update = True
             else:
               print("You don't have enough mana to cast any spells.", end='\r')
-              update = True
-          elif tmp_input.lower() == "k":
-          #Skill was selected
-          for skill in self.player.Skills:
-          #Check to see if they can cast it
-            if self.player.mp >= skill.kCost:
-            #Ask if they want to use item
-              if skill.kname == "":
-                tmp_answer = input(f'Use {skill.sname} Cost {skill.sCost}? y/n')
-                if tmp_answer.lower() == "y":
-                  #Use skill
-                  self.player.HealPlayer(int(skill.kDmg))
-                  print(f' You dealt {skill.sDmg} damage', end='\r')
-                  self.player.mp -= skill.kCost
-                  update = True
-                else:
-                  update = True
-            else:
-              print("You don't have enough Stamina to use any skills", end='\r')
               update = True
         else:
         #Exit clause
@@ -860,7 +820,7 @@ class gameWorld:
       my_list.append('Hit')
       count +=1
     
-    #Randomly choice one
+    #Randomly choose one
     outcome = random.choice(sorted(my_list, key=str.lower))
     if outcome == 'Blocked':
       #Our attack was blocked
@@ -907,8 +867,8 @@ class gameWorld:
           break
       
       while Action == "":
-        if self.player.pclass == "Mage":
-          #funtion for Mage Battle
+        if self.player.pclass == "Mage" or self.player.pclass == "Monk":
+          #function for Mage and Monk Battle
           if Spells_Found and Items_found:
             tmp_input = input('''
             Press Enter to Attack
@@ -993,31 +953,91 @@ class gameWorld:
             input(" Press Enter to Attack")  
             Action = "Atk"
 
-        elif Items_found:
-          #Not a Mage but has Items
-          tmp_input = input('''
-          Press Enter to Attack
-          Press I to use a Item
+       if self.player.pclass == "Fighter" or self.player.pclass == "Thief":
+          #function for fighter and thief Battle
+          if Skills_Found and Items_found:
+            tmp_input = input('''
+            Press Enter to Attack
+            Press I to use a Item
+            Press S to use a Skill
             ''')
-          if tmp_input.lower() == "i":
-            #Item was selected
-            for item in self.player.inv:
-              if item.iname == "Potion":
-                tmp_answer = input("Use a Potion? y/n")
-                if tmp_answer.lower() == "y":
-                  Item_Used = "Potion"
-                  Action = "Item"
-              elif item.iname == "Ether":
-                tmp_answer = input('Use a Ether? y/n')
-                if tmp_answer.lower() == "y":
-                  Item_Used = "Ether"
-                  Action = "Item"
-            #print("You don't have any items to use in battle")
+            if tmp_input.lower() == "i":
+              #Item was selected
+              for item in self.player.inv:
+                if item.iname == "Potion":
+                  tmp_answer = input("Use a Potion? y/n")
+                  if tmp_answer.lower() == "y":
+                    Item_Used = "Potion"
+                    Action = "Item"
+                elif item.iname == "Ether":
+                  tmp_answer = input('Use a Ether? y/n')
+                  if tmp_answer.lower() == "y":
+                    Item_Used = "Ether"
+                    Action = "Item"
+            elif tmp_input.lower() == "s":
+              #Skill was selected
+              for skill in self.player.Skills:
+                #Check to see if they can cast it
+                if self.player.mp >= skill.kCost:
+                  #Ask if they want to use item
+                  tmp_answer = input(f'Use {skill.kname} Cost {skill.kCost}? y/n')
+                  if tmp_answer.lower() == "y":
+                    Skill_Used = skill.kname
+                    Action = "Skill"
+                    break
+              else:
+                print("You don't have enough stamina to use any skills", end='\r')
+            else:
+              Action = "Atk"
+
+          
+          elif Skills_Found and not Items_found:
+            #Skills but no items
+            tmp_input = input('''
+            Press Enter to Attack
+            Press S to use Skill
+            ''')
+            if tmp_input.lower() == "s":
+              #Spell was selected
+              for skill in self.player.SKills:
+                #Check to see if they can cast it
+                if self.player.mp >= skill.kCost:
+                  #Ask if they want to use item
+                  tmp_answer = input(f'Use {skill.kname} Cost {skill.kCost}? y/n')
+                  if tmp_answer.lower() == "y":
+                    Skill_Used = skill.kname
+                    Action = "Skill"
+                    break
+                else:
+                  print("You don't have enough stamina to use any skills", end='\r')
+            else:
+              Action = "Atk"
+
+
+          elif not Skills_Found and Items_found:
+            #No Skill but they have some Items
+            tmp_input = input('''
+            Press Enter to Attack
+            Press I to use a Item
+            ''')
+            if tmp_input.lower() == "i":
+              #Item was selected
+              for item in self.player.inv:
+                if item.iname == "Potion":
+                  tmp_answer = input("Use a Potion? y/n")
+                  if tmp_answer.lower() == "y":
+                    Item_Used = "Potion"
+                    Action = "Item"
+                elif item.iname == "Ether":
+                  tmp_answer = input('Use a Ether? y/n')
+                  if tmp_answer.lower() == "y":
+                    Item_Used = "Ether"
+                    Action = "Item"
+            else:
+              Action = "Atk"
           else:
+            input(" Press Enter to Attack")  
             Action = "Atk"
-        else:
-          input('Press Enter to attack')
-          Action = "Atk"
 
 
       #Start of action code
@@ -1048,6 +1068,16 @@ class gameWorld:
               self.enemy.health -= int(spell.sDmg)
               print(f' You cast {spell.sname} for {spell.sDmg} damage', end='\r')
               break
+        Action = ""
+      elif Action == "Skill":
+        #Using Skill
+        for skill in self.player.Skills:
+          if skill.kname == Skill_Used:
+            self.player.mp -= skill.kCost
+            #attack with skill
+            self.enemy.health -= int(skill.kDmg)
+            print(f' You used {skill.kname}, it caused {skill.kDmg} damage', end='\r')
+            break
         Action = ""
       elif Action == "Atk":
         #Attaking
