@@ -38,8 +38,8 @@ class gameWorld:
 
 
     #Creating Item list
-    self.Spells= [class_support.Spell("Cure", 1, "Heal", 15, 30), class_support.Spell("Fireball", 1, "Atk", 15, 15), class_support.Spell("Str Up", 1, "Buff", 20, 5)class_support.Spell("Cura", 1, "Heal", 30, 60)]
-    self.Skills= [class_support.Skill("Cleaving Strike", "Atk", 20, 30), class_support.Skill("Mug", "Atk", 5, 15), class_support.Skill("Whirlwind Strike", "Atk", 15, 20), class_support.Skill("Death Blow", "Atk", 40, 65), class_support.Skill("Steal Life", "Atk", 10, 20)]
+    self.Spells= [class_support.Spell("Cure", 1, "Heal", 15, 30), class_support.Spell("Fireball", 1, "Atk", 15, 15), class_support.Spell("Str Up", 1, "Buff", 20, 5)class_support.Spell("Cura", 1, "Heal", 20, 45)]
+    self.Skills= [class_support.Skill("Cleaving Strike", "Atk", 15, 30), class_support.Skill("Mug", "Atk", 15, 15), class_support.Skill("Whirlwind Strike", "Atk", 15, 20), class_support.Skill("Death Blow", "Atk", 40, 65), class_support.Skill("Steal", "Atk", 10, 20)]
     self.weapons = [class_support.Weapon("Short Sword", 5, 10, "sword"), class_support.Weapon("Brass Knuckles", 10, 14, "bare"), class_support.Weapon("Wooden Staff", 5, 10, "staff"), class_support.Weapon("Rapier", 9, 5, "sword"), class_support.Weapon("Long Sword", 20, 10, "sword"), class_support.Weapon("light Axe", 28, 15, "axe"), class_support.Weapon("Small Knife", 5, 15, "knife"), class_support.Weapon("Stick", 1, 3, "knife")]
     self.armors = [class_support.Armor("Cloth Armor", 10, 5, "cloth"), class_support.Armor("Shirt", 10, 3, "cloth"), class_support.Armor("Leather Armor", 15, 8, "leather"), class_support.Armor("Robe", 10, 3, "cloth"), class_support.Armor("Cover-all", 5, 7, "cloth")]
     self.items = [class_support.Item("Potion", "Heal", 1, 30), class_support.Item("Ether", "Heal", 1, 25),class_support.Item("Kings Crown", "Key", 1), class_support.Item('Door Key', "Consumable", 1), class_support.Item("Skull Key", "Consumable", 1)]
@@ -66,7 +66,7 @@ class gameWorld:
     #Normal HUD
     print(f'Name : {self.player.pname}        Lvl : {self.player.lvl}     Exp : {self.player.exp}')
     print(f'HP : {self.player.health}/{self.player.max_health}      Battles Left: {len(self.badguys)}    Gold : {self.player.gold}')
-    #requires additional MP stuff
+    #requires additional mana / stamina display stuff
     if self.player.pclass == "Mage" or self.player.pclass == "Monk":
       print(f'MP : {self.player.mp}/{self.player.max_mp}')
     if self.play.pclass == "Fighter" or self.player.pclass == "Thief":
@@ -117,7 +117,7 @@ class gameWorld:
         health = 35
         Ev = 8
         Acc = 45
-        self.player.max_mp = 40
+        self.player.max_mp = 30
         self.player.mp = self.player.max_mp
       elif tmp == "2":
         #Monk Class
@@ -129,7 +129,7 @@ class gameWorld:
         health = 25
         Ev = 12
         Acc = 35
-        self.player.max_mp = 20
+        self.player.max_mp = 30
         self.player.mp = self.player.max_mp
       elif tmp == "3":
         #Thief Class
@@ -294,7 +294,7 @@ class gameWorld:
       if self.player.lvl % 2:
         self.player.addSkill("Mug")
       if self.player.lvl % 3:
-        self.player.addSkill("Steal Life")
+        self.player.addSkill("Steal")
     #lvl up mobs
     for bad in self.moblist:
       bad.lvl += plvl
@@ -455,7 +455,7 @@ class gameWorld:
     ch = random.randint(0,3)
     rdn = random.randint(10, 50)
     if ch == 0:
-      #Choice random weapon
+      #random weapon
       wpn = random.choice(self.weapons)
       print(f'Would you like to buy a {wpn.wname} for {rdn} gold?')
       if wpn.w_hit >= self.player.Weapon[0].w_hit:
@@ -475,7 +475,7 @@ class gameWorld:
       else:
         print('Good Bye')
     elif ch == 1:
-      #choice random armor
+      #random armor
       arm = random.choice(self.armors)
       print(f'Would you like to buy a {arm.aname} for {rdn} gold?')
       if arm.arate >= self.player.Armor[0].arate:
@@ -494,7 +494,7 @@ class gameWorld:
       else:
         print('Good Bye')
     else:
-      #choice random heal item
+      #random heal item
       found = False
       while found != True:
         itm = random.choice(self.items)
@@ -609,12 +609,13 @@ class gameWorld:
         update = False
       Items_found = False
       Spells_found = False
+      Skills_found = False
       
       for item in self.player.inv:
         if item.itype == "Heal":
           Items_found = True
       for spell in self.player.Spells:
-        if spell.sname == "Cure":
+        if spell.sname == "Cure" or spell.sname=="Cura":
           Spells_found = True
       
       if Items_found and Spells_found:
@@ -746,10 +747,10 @@ class gameWorld:
     print(f' Position {self.position}')
     print('.......................................')
     print(f' Name : {self.player.pname}   Class: {self.player.pclass}     Lvl: {self.player.lvl}')
-    #If player is a mage show their MP
+    # If player is a mage or monk show their MP
     if self.player.pclass == "Mage" or self.player.pclass == "Monk":
       print(f' HP: {self.player.health}/{self.player.max_health}      MP: {self.player.mp}/{self.player.max_mp} ')
-    else:
+    else: # If player is fighter or thief display stamina
       print(f' HP: {self.player.health}/{self.player.max_health}      Stamina: {self.player.mp}/{self.player.max_mp}')
     print('.......................................')
     #player has a weapon equiped
@@ -779,26 +780,28 @@ class gameWorld:
     else:
       print("You don't have any items.")
     print('.......................................')
-
-    #Check for Spells
-    print(" Spells:")
-    if self.player.Spells:
-      for spell in self.player.Spells:
-        print(f' {spell.sname}     Lvl: {spell.slevel}    Dmg: {spell.sDmg}')
-    else:
-      print("You don't have any spells")
-    print('.......................................')
-    print('')
     
-    #Check for Skills
-    print(" Skills:")
-    if self.player.Skills:
-      for spell in self.player.Skills:
-        print(f' {skill.kname}     Dmg: {skill.kDmg}')
-    else:
-      print("You don't have any skills")
-    print('.......................................')
-    print('')
+    if self.player.pclass == "Mage" or self.player.pclass == "Monk":
+      #Check for Spells if player is Mage or Monk
+      print(" Spells:")
+      if self.player.Spells:
+        for spell in self.player.Spells:
+          print(f' {spell.sname}     Lvl: {spell.slevel}    Dmg: {spell.sDmg}')
+      else:
+        print("You don't have any spells")
+      print('.......................................')
+      print('')
+      
+    if self.player.pclass == "Fighter" or self.player.pclass == "Theif":
+      #Check for Skills if player is fighter or theif
+      print(" Skills:")
+      if self.player.Skills:
+        for spell in self.player.Skills:
+          print(f' {skill.kname}     Dmg: {skill.kDmg}')
+      else:
+        print("You don't have any skills")
+      print('.......................................')
+      print('')
 
   def calc_dmg(self, pStr, pAcc=10, eEv=5, pArmor=0, pWeight=0, pwHit=10):
 
@@ -849,18 +852,23 @@ class gameWorld:
       self.graphics.CallArtByName(self.enemy.mobtype).ShowArt()
 
       #Clear out the variables
-      Action = ""  #atk, spell, item, flee
+      Action = ""  #atk, spell, item, flee, skill
       Spells_Found = False
       Items_found = False
+      Skills_Found = False
       Spell_Used = "" # name of spell used
       Item_Used = "" # name of item used
+      Skill_Used = "" # name of skill used
 
       #Check to see if the player has any Spells
       if self.player.Spells:
         Spells_Found = True
+      
+      #Check to see if player has any Skills
+      if self.player.Skills:
+         Skills_Found = True
 
       #Check to see if player has Potion or Ether
-
       for i in self.player.inv:
         if i.itype == "Heal":
           Items_found = True
