@@ -649,7 +649,7 @@ class gameWorld:
               else:
                 update = True
         elif tmp_input.lower() == "k":
-          #Spell was selected
+          #Skill was selected
           for skill in self.player.Skills:
           #Check to see if they can cast it
             if self.player.mp >= skill.kCost:
@@ -691,10 +691,11 @@ class gameWorld:
           update = False
           working = False
           break
-      elif Spells_found and not Items_found:
+      elif Spells_found and Skills_found and not Items_found:
         #Spells but no items
         tmp_input = input('''
               Press Enter to go back to the map
+              Press K to use Skill
               Press S to use Spell
               ''')
         if tmp_input.lower() == "s":
@@ -716,6 +717,25 @@ class gameWorld:
                   update = True
             else:
               print("You don't have enough mana to cast any spells.", end='\r')
+              update = True
+          elif tmp_input.lower() == "k":
+          #Skill was selected
+          for skill in self.player.Skills:
+          #Check to see if they can cast it
+            if self.player.mp >= skill.kCost:
+            #Ask if they want to use item
+              if skill.kname == "":
+                tmp_answer = input(f'Use {skill.sname} Cost {skill.sCost}? y/n')
+                if tmp_answer.lower() == "y":
+                  #Use skill
+                  self.player.HealPlayer(int(skill.kDmg))
+                  print(f' You dealt {skill.sDmg} damage', end='\r')
+                  self.player.mp -= skill.kCost
+                  update = True
+                else:
+                  update = True
+            else:
+              print("You don't have enough Stamina to use any skills", end='\r')
               update = True
         else:
         #Exit clause
