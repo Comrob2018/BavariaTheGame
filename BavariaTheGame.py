@@ -194,6 +194,7 @@ def Move_Char(X,Y):
 #start of the game
 Calradia = class_world.gameWorld()
 Map = class_map.Map_Gen()
+Calradia.running = True
 while Calradia.running == True:
   new_lvl = []
   new_lvl = class_map.Map_Gen(30, 30, 60, (10, 10, 10, 10), (1,1), 3, 15, True)
@@ -204,7 +205,7 @@ while Calradia.running == True:
   Calradia.char_setup()
   helper_functions.clear_screen()
 
-  #start of the adventer
+  #start of the adventure
   print('')
   print(f'Welcome to Bavaria, young {Calradia.player.pname}')
   print('')
