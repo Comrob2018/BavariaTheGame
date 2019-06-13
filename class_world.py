@@ -796,7 +796,7 @@ class gameWorld:
       #Check for Skills if player is fighter or theif
       print(" Skills:")
       if self.player.Skills:
-        for spell in self.player.Skills:
+        for skill in self.player.Skills:
           print(f' {skill.kname}     Dmg: {skill.kDmg}')
       else:
         print("You don't have any skills")
@@ -961,7 +961,7 @@ class gameWorld:
             input(" Press Enter to Attack")  
             Action = "Atk"
 
-       if self.player.pclass == "Fighter" or self.player.pclass == "Thief":
+        if self.player.pclass == "Fighter" or self.player.pclass == "Thief":
           #function for fighter and thief Battle
           if Skills_Found and Items_found:
             tmp_input = input('''
