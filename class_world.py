@@ -1214,3 +1214,4 @@ class gameWorld:
         print('You were killed!')
         time.sleep(1)
         self.game_over()
+gameworld()
