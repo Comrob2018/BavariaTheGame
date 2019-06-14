@@ -43,12 +43,12 @@ class player:
   # Give the player an item.
   # Expects a parameter of type item from class_support.py
   # Returns True.
-  def GiveItem(self, pItem, pAmount=1):
+  def GiveItem(self, pItemName, pAmount=1):
     for item in self.inv:
-      if item.iname == pItem.iname:
+      if item.iname == pItemName.iname:
         item.iamount += pAmount
         return True
-    self.inv.append(pItem)
+    self.inv.append(pItemName)
     return True
 
   #Deprecated, we now pass the item as a parameter

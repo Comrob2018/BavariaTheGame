@@ -69,7 +69,7 @@ class gameWorld:
     #requires additional mana / stamina display stuff
     if self.player.pclass == "Mage" or self.player.pclass == "Monk":
       print(f'MP : {self.player.mp}/{self.player.max_mp}')
-    if self.play.pclass == "Fighter" or self.player.pclass == "Thief":
+    if self.player.pclass == "Fighter" or self.player.pclass == "Thief":
       print(f'Stamina: {self.player.mp}/{self.player.max_mp}')
 
     #Check if there is anything in the inventory
@@ -214,7 +214,7 @@ class gameWorld:
       print(f"Health: {self.player.health}/{self.player.max_health}")
       if self.player.pclass == "Mage" or self.player.pclass == "Monk":
         print(f"Mana: {self.player.mp}/{self.player.max_mp}")
-      if self.play.pclass == "Fighter" or self.player.pclass == "Thief":
+      if self.player.pclass == "Fighter" or self.player.pclass == "Thief":
         print(f'Stamina: {self.player.mp}/{self.player.max_mp}')
       print(f"Evasion: {self.player.Evasion}   Accuracy: {self.player.Accuracy}")
       print(f"Strength: {self.player.strength} ")
@@ -276,24 +276,24 @@ class gameWorld:
     self.player.Accuracy += int((plvl*(random.randint(1,4))))
     self.player.strength += int((plvl*(random.randint(1,4))))
     if self.player.pclass == "Mage":
-      if self.player.lvl % 2:
+      if self.player.lvl == 2:
         self.player.addSpell("Cure")
-      if self.player.lvl % 3:
+      if self.player.lvl == 3:
         self.player.addSpell("Fireball")
     if self.player.pclass == "Fighter":
-      if self.player.lvl % 2:
+      if self.player.lvl == 2:
         self.player.addSkill("Whirlwind Strike")
-      if self.player.lvl % 3:
+      if self.player.lvl == 3:
         self.player.addSkill("Cleaving Strike") 
     if self.player.pclass == "Monk":
-      if self.player.lvl % 2:
+      if self.player.lvl == 2:
         self.player.addSpell("Cure")
-      if self.player.lvl % 3:
+      if self.player.lvl == 3:
         self.player.addSpell("Cura")
     if self.player.pclass == "Theif":
-      if self.player.lvl % 2:
+      if self.player.lvl == 2:
         self.player.addSkill("Mug")
-      if self.player.lvl % 3:
+      if self.player.lvl == 3:
         self.player.addSkill("Steal")
     #lvl up mobs
     for bad in self.moblist:
