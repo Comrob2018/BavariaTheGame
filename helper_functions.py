@@ -1,5 +1,6 @@
 import textwrap
 import time
+import os
 
 ''' Textwrap wrapper'''
 def WrappedTextOutput(p_text, p_width=70):
@@ -8,9 +9,10 @@ def WrappedTextOutput(p_text, p_width=70):
     print(s)
     
 def clear_screen():
-  print('\033[H\033[J')
-  print('\n'*250)
-  print('\033[J\033[H') #moves the cursor back to the top
+  if os.name == 'nt':
+    _ = os.system('cls')
+  else:
+    _ = os.system('clear')
+  
+  print('\n'*50)
   time.sleep(0.1)
-
-
