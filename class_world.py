@@ -5,6 +5,7 @@ import class_support
 import class_monster
 import helper_functions
 import class_graphics
+import os
 
 
 class gameWorld:
