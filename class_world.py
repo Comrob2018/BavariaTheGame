@@ -277,24 +277,24 @@ class gameWorld:
     self.player.Accuracy += int((plvl*(random.randint(1,4))))
     self.player.strength += int((plvl*(random.randint(1,4))))
     if self.player.pclass == "Mage":
-      if self.player.lvl == 2:
+      if self.player.lvl < 3:
         self.player.addSpell("Cure")
-      if self.player.lvl == 3:
+      if self.player.lvl < 4:
         self.player.addSpell("Fireball")
     if self.player.pclass == "Fighter":
-      if self.player.lvl == 2:
+      if self.player.lvl < 3:
         self.player.addSkill("Whirlwind Strike")
-      if self.player.lvl == 3:
+      if self.player.lvl < 4:
         self.player.addSkill("Cleaving Strike") 
     if self.player.pclass == "Monk":
-      if self.player.lvl == 2:
+      if self.player.lvl < 3:
         self.player.addSpell("Cure")
-      if self.player.lvl == 3:
+      if self.player.lvl < 4:
         self.player.addSpell("Cura")
     if self.player.pclass == "Theif":
-      if self.player.lvl == 2:
+      if self.player.lvl < 3:
         self.player.addSkill("Mug")
-      if self.player.lvl == 3:
+      if self.player.lvl < 4:
         self.player.addSkill("Steal")
     #lvl up mobs
     for bad in self.moblist:
