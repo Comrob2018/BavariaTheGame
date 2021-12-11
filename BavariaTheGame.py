@@ -213,7 +213,7 @@ while Calradia.running == True:
   Calradia.graphics.CallArtByName("Dwarf").ShowArt()
   print('')
   print('We are in need of your help. Yesterday, a goblin stole the king\'s crown.')
-  print(' We tried to get it back but the Goblin King\' minions are to strong for our guards')
+  print(' We tried to get it back but the Goblin King\' minions are too strong for our guards')
   print('')
 
   tmp=input('''
@@ -224,12 +224,12 @@ while Calradia.running == True:
 
   if tmp == "2":
     print("This is a game, so you really don't have a choice.")
-    print('Man up and save the world!!')
+    print("Man up and save this king's crown!!")
     time.sleep(1)
   helper_functions.clear_screen()
-  print('''
+  print(f'''
 
-  Thank you, Adventurer. 
+  Thank you, {Calradia.player.pname} 
 
   Our guards were able to track down the goblins to a cave up north. 
   Many guards have entered, but not one has returned.
