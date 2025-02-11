@@ -215,7 +215,7 @@ while Calradia.running == True:
   print('We are in need of your help. Yesterday, a goblin stole the king\'s crown.')
   print(' We tried to get it back but the Goblin King\' minions are too strong for our guards')
   print('')
-
+  
   tmp=input('''
   Will you help us?
   1 = Yes, I will help!
@@ -235,7 +235,7 @@ while Calradia.running == True:
   Many guards have entered, but not one has returned.
   We fear the worst for them.   
     ''')
-
+  #this is where to add the settings import funciton to the main game.
   tmp=input('''
   Press Enter when you are ready to begin your adventure!
     
